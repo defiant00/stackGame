@@ -1,0 +1,2 @@
+use console, window
+	log for console.log
