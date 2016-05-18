@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='utf-8' />
+    <title>Stacking Game</title>
+	<link rel='stylesheet' href='game.css' type='text/css' />
+    <script src='mnfw.js'></script>
+	<script src='ace/ace.js'></script>
+	<script src='sgame.js'></script>
+</head>
+<body>
+	<div class='outer'>
+		<div id='homeScreen'>
+			<h1>Stacking Game</h1>
+			A programming game with stacks.
+			<hr />
+			<div class='buttons'>
+				<input type='button' value='First' onclick='Game.DoLevel(0);' />
+				<input type='button' value='Second' onclick='Game.DoLevel(1);' />
+			</div>
+		</div>
+		<div id='editScreen' style='display: none;'>
+			<h1>Exercise Something - Doing a Thing</h1>
+			<div id='editor'></div>
+			<div class='editRight'>
+				<div class='buttons'>
+					<input type='button' value='Stop' onclick='alert("stop");' />
+					<input type='button' value='|| Step' onclick='alert("step");' />
+					<input type='button' value='|> Run' onclick='alert("run");' />
+					<input type='button' value='>> Fast' onclick='alert("fast");' />
+				</div>
+				<div class='stacks'>
+					<div class='stack'>IO</div>
+					<div class='stack'>Temp</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,1 +1,1 @@
-c:\Minet.exe editor.mn using.mn /out:bin\sgame.js /build
+c:\Minet.exe game.mn using.mn /out:bin\sgame.js /build

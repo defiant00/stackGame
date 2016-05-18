@@ -1,0 +1,43 @@
+body {
+	background-color: #303030;
+	color: #c0c0c0;
+}
+
+#editor {
+	float: left;
+	position: relative;
+	width: 400px;
+	height: 600px;
+}
+
+div.outer {
+	margin: 0 auto;
+	width: 816px;
+}
+
+div.editRight {
+	float: right;
+	height: 600px;
+	width: 400px;
+}
+
+div.stacks {
+	margin: 16px 0 0 0;
+}
+
+div.stack {
+	float: left;
+	width: 64px;
+	text-align: center;
+}
+
+div.buttons input,
+input.btn {
+	margin-right: 4px;
+	width: 80px;
+	height: 32px;
+	border-radius: 4px;
+	background-color: transparent;
+	border: 1px solid #c0c0c0;
+	color: #c0c0c0;
+}

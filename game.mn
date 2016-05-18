@@ -1,0 +1,37 @@
+Game.Screen
+	Home, Edit
+	
+	Load: fn()
+		Home: getById('homeScreen')
+		Edit: getById('editScreen')
+	
+	ShowHome: fn()
+		Edit.style.display: 'none'
+		Home.style.display: 'block'
+	
+	ShowEdit: fn()
+		Home.style.display: 'none'
+		Edit.style.display: 'block'
+
+Game
+	Editor
+	Warnings: []
+	
+	Main: fn()
+		Editor: ace.edit('editor')
+		Editor
+			setTheme('ace/theme/stack')
+			getSession().setMode('ace/mode/stack')
+		Screen.Load()
+
+	AddWarning: fn(line, text)
+		Warnings.push({row, column, text, type: line, 0, text, 'warning'})
+
+	ClearWarnings: fn()
+		Warnings: []
+
+	ShowWarnings: fn()
+		Editor.getSession().setAnnotations(Warnings)
+
+	DoLevel: fn(num)
+		Screen.ShowEdit()
