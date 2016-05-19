@@ -1,12 +1,18 @@
 Game.UI
-	Home, Edit, EditTitle, IO, Temp
+	Home, Edit, Editor, EditTitle, IO, Temp
+	Warnings: []
 
-	Load: fn()
+	Init: fn()
 		Home: getById('homeScreen')
 		Edit: getById('editScreen')
 		EditTitle: getById('editTitle')
 		IO: getById('io')
 		Temp: getById('temp')
+		
+		Editor: ace.edit('editor')
+		Editor
+			setTheme('ace/theme/stack')
+			getSession().setMode('ace/mode/stack')
 	
 	ShowHome: fn()
 		Edit.style.display: 'none'
@@ -16,6 +22,15 @@ Game.UI
 		Home.style.display: 'none'
 		Edit.style.display: 'block'
 		EditTitle.innerHTML: name
+	
+	AddWarning: fn(line, text)
+		Warnings.push({row, column, text, type: line, 0, text, 'warning'})
+
+	ClearWarnings: fn()
+		Warnings: []
+
+	ShowWarnings: fn()
+		Editor.getSession().setAnnotations(Warnings)
 	
 	Update: fn()
 		UpdateIO()

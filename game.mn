@@ -1,25 +1,8 @@
 Game
-	Editor, CurLevel
-	Warnings: []
-	
-	Main: fn()
-		Editor: ace.edit('editor')
-		Editor
-			setTheme('ace/theme/stack')
-			getSession().setMode('ace/mode/stack')
-		UI.Load()
-
-	AddWarning: fn(line, text)
-		Warnings.push({row, column, text, type: line, 0, text, 'warning'})
-
-	ClearWarnings: fn()
-		Warnings: []
-
-	ShowWarnings: fn()
-		Editor.getSession().setAnnotations(Warnings)
+	CurLevel
 
 	DoLevel: fn(num)
-		Editor.setValue('', -1)
+		UI.Editor.setValue('', -1)
 		CurLevel: Level{num}
 		UI.Update()
 		UI.ShowEdit(CurLevel.Name)
