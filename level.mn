@@ -1,0 +1,14 @@
+Game
+	LevelData: [
+		{name, io: 'first', []},
+		{name, io: 'second', [1, 2, 3]}
+	]
+
+Game.Level
+	.Name, .IO, .Temp
+	
+	.Level: fn(lNum)
+		var c: Game.LevelData[lNum]
+		Name: c.name
+		IO: c.io
+		Temp: []

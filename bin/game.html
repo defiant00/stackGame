@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<div id='editScreen' style='display: none;'>
-			<h1>Exercise Something - Doing a Thing</h1>
+			<h1 id='editTitle'>Exercise Something - Doing a Thing</h1>
 			<div id='editor'></div>
 			<div class='editRight'>
 				<div class='buttons'>
@@ -29,10 +29,12 @@
 					<input type='button' value='|> Run' onclick='alert("run");' />
 					<input type='button' value='>> Fast' onclick='alert("fast");' />
 				</div>
-				<div class='stacks'>
-					<div class='stack'>IO</div>
-					<div class='stack'>Temp</div>
-				</div>
+			</div>
+			<div class='bottom'>
+			<h3>IO</h3>
+			<div id='io'>&nbsp;</div>
+			<h3>(T)emp</h3>
+			<div id='temp'>&nbsp;</div>
 			</div>
 		</div>
 	</div>

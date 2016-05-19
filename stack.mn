@@ -1,0 +1,9 @@
+Game.Stack
+	.Vals: []
+	
+	.Push: fn(v)
+		Vals.push(v)
+		log(Vals)
+	
+	.Pop: fn()
+		ret Vals.pop()

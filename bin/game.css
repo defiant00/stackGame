@@ -21,14 +21,13 @@ div.editRight {
 	width: 400px;
 }
 
-div.stacks {
-	margin: 16px 0 0 0;
+div.bottom {
+	clear: both;
+	padding: 4px 0 0 0;
 }
 
-div.stack {
-	float: left;
-	width: 64px;
-	text-align: center;
+div.bottom h3 {
+	margin: 4px 0;
 }
 
 div.buttons input,

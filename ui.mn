@@ -1,0 +1,34 @@
+Game.UI
+	Home, Edit, EditTitle, IO, Temp
+
+	Load: fn()
+		Home: getById('homeScreen')
+		Edit: getById('editScreen')
+		EditTitle: getById('editTitle')
+		IO: getById('io')
+		Temp: getById('temp')
+	
+	ShowHome: fn()
+		Edit.style.display: 'none'
+		Home.style.display: 'block'
+	
+	ShowEdit: fn(name)
+		Home.style.display: 'none'
+		Edit.style.display: 'block'
+		EditTitle.innerHTML: name
+	
+	Update: fn()
+		UpdateIO()
+		UpdateTemp()
+	
+	UpdateIO: fn()
+		var res: Game.CurLevel.IO.join(', ')
+		if res.length = 0
+			res: '&nbsp;'
+		IO.innerHTML: res
+	
+	UpdateTemp: fn()
+		var res: Game.CurLevel.Temp.join(', ')
+		if res.length = 0
+			res: '&nbsp;'
+		Temp.innerHTML: res
