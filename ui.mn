@@ -12,7 +12,9 @@ Game.UI
 		Editor: ace.edit('editor')
 		Editor
 			setTheme('ace/theme/stack')
-			getSession().setMode('ace/mode/stack')
+			session
+				setMode('ace/mode/stack')
+				setOption('useWorker', false)
 			on('change', fn()
 				Game.CurProgram.Build(Editor.getValue())
 			)
@@ -27,13 +29,13 @@ Game.UI
 		EditTitle.innerHTML: name
 	
 	AddWarning: fn(line, text)
-		Warnings.push({row, column, text, type: line, 0, text, 'warning'})
+		Warnings.push({row, column, text, type: line - 1, 0, text, 'warning'})
 
 	ClearWarnings: fn()
 		Warnings: []
 
 	ShowWarnings: fn()
-		Editor.getSession().setAnnotations(Warnings)
+		Editor.session.setAnnotations(Warnings)
 	
 	Update: fn()
 		UpdateIO()

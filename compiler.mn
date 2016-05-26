@@ -4,23 +4,159 @@ Game.Built
 	
 	.Build: fn(input)
 		Errors: []
-		var res: Compiler.Parse(input, Errors)
+		var p: Parser{Errors}
+			res: p.Parse(input)
 		Reset()
+		
+		UI.ClearWarnings()
+		for e in Errors
+			UI.AddWarning(e.Pos.Line, e.Val)
+		UI.ShowWarnings()
+		log(Errors.length)
 	
 	.Reset: fn()
 		InputCounter, ProgramCounter: 0
 
-Game.Compiler
-	Lex: fn(inp, errs)
-		inp +: '\0'
-		var start, pos: 0
-			toks: []
+Game.TokenType
+	Identifier: 0
+	Label: 1
+	Number: 2
+	Add: 3
+
+Game.Position
+	.Char, .Line
+	.Position: fn(char, line)
+		Char: char
+		Line: line
+
+Game.Error
+	.Val, .Pos
+	.Error: fn(val, pos)
+		Val: val
+		Pos: pos
+
+Game.Token
+	.Type, .Pos, .Val
+	
+	Keywords: [
+		["ADD", TokenType.Add]
+	]
+	
+	.Token: fn(type, pos, val, errs)
+		Type: type
+		Pos: pos
+		Val: val.toUpperCase()
 		
-		; needs to be updated to Game.Lexer with start and pos being instance vars
+		for k in Keywords
+			if k[0] = Val
+				Type: k[1]
+				break
 		
+		if type = TokenType.Label and Type != TokenType.Label
+			errs.push(Error{"Cannot use '" + val + "' as a label.", pos})
+
+Game.Lexer
+	.input, .errors, .toks, .start, .pos
+	
+	.Lexer: fn(errs)
+		errors: errs
+
+	.isLetter: fn(c)
+		ret c.match(//[a-zA-Z_]/)
+	
+	.isLetterOrDigit: fn(c)
+		ret c.match(//[a-zA-Z0-9_]/)
+	
+	.isDigit: fn(c)
+		ret c.match(//[0-9]/)
+	
+	.isWhiteSpace: fn(c)
+		ret c.match(//\s/)
+	
+	.curVal
+		get
+			ret input.substring(start, pos)
+	
+	.curPos
+		get
+			var l, c: 1
+				cl: true
+			for i in start to 0
+				if
+					input[i] = '\n'
+						l++
+						cl: false
+					cl
+						c++
+			ret Position{c, l}
+	
+	.Lex: fn(inp)
+		input: inp + '\0'
+		start, pos: 0
+		toks: []
+		
+		while true
+			var c: next()
+			if
+				c = '\0'
+					break
+				c = ';'
+					while peek != '\n' and peek != '\0'
+						pos++
+					discard()
+				isLetter(c)
+					while isLetterOrDigit(peek)
+						pos++
+					if peek = ':'
+						emit(TokenType.Label)
+						pos++
+						discard()
+					else
+						emit(TokenType.Identifier)
+				isDigit(c) or c = '-'
+					while isDigit(peek)
+						pos++
+					if curVal = '-'
+						errors.push(Error{"'-' with no number.", curPos})
+						discard()
+					else
+						emit(TokenType.Number)
+				isWhiteSpace(c)
+					discard()
+				else
+					backup()
+					errors.push(Error{"Unknown char '" + peek + "'", curPos})
+					next()
+					discard()
 		ret toks
 	
-	Parse: fn(inp, errs)
-		var toks: Lex(inp, errs)
+	.peek
+		get
+			ret input[pos]
+	
+	.next: fn()
+		var c: peek
+		pos++
+		ret c
+	
+	.backup: fn()
+		pos--
+		
+	.discard: fn()
+		start: pos
+		
+	.emit: fn(tType)
+		toks.push(Token{tType, curPos, curVal, errors})
+		start: pos
+
+Game.Parser
+	.errors
+	
+	.Parser: fn(errs)
+		errors: errs
+
+	.Parse: fn(inp)
+		var l: Lexer{errors}
+			toks: l.Lex(inp)
 			lbls: []
 		log(toks)
