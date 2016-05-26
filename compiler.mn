@@ -1,0 +1,26 @@
+Game.Built
+	.Errors: []
+	.InputCounter, .ProgramCounter: 0
+	
+	.Build: fn(input)
+		Errors: []
+		var res: Compiler.Parse(input, Errors)
+		Reset()
+	
+	.Reset: fn()
+		InputCounter, ProgramCounter: 0
+
+Game.Compiler
+	Lex: fn(inp, errs)
+		inp +: '\0'
+		var start, pos: 0
+			toks: []
+		
+		; needs to be updated to Game.Lexer with start and pos being instance vars
+		
+		ret toks
+	
+	Parse: fn(inp, errs)
+		var toks: Lex(inp, errs)
+			lbls: []
+		log(toks)

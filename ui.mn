@@ -1,10 +1,10 @@
 Game.UI
-	Home, Edit, Editor, EditTitle, IO, Temp
+	HomeDiv, EditDiv, Editor, EditTitle, IO, Temp
 	Warnings: []
 
 	Init: fn()
-		Home: getById('homeScreen')
-		Edit: getById('editScreen')
+		HomeDiv: getById('homeScreen')
+		EditDiv: getById('editScreen')
 		EditTitle: getById('editTitle')
 		IO: getById('io')
 		Temp: getById('temp')
@@ -13,14 +13,17 @@ Game.UI
 		Editor
 			setTheme('ace/theme/stack')
 			getSession().setMode('ace/mode/stack')
+			on('change', fn()
+				Game.CurProgram.Build(Editor.getValue())
+			)
 	
 	ShowHome: fn()
-		Edit.style.display: 'none'
-		Home.style.display: 'block'
+		EditDiv.style.display: 'none'
+		HomeDiv.style.display: 'block'
 	
 	ShowEdit: fn(name)
-		Home.style.display: 'none'
-		Edit.style.display: 'block'
+		HomeDiv.style.display: 'none'
+		EditDiv.style.display: 'block'
 		EditTitle.innerHTML: name
 	
 	AddWarning: fn(line, text)
