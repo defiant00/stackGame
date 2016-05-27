@@ -18,10 +18,9 @@ Game.Built
 		InputCounter, ProgramCounter: 0
 
 Game.TokenType
-	Identifier: 0
-	Label: 1
-	Number: 2
-	Add: 3
+	enum
+		Identifier, Label, Number
+		Add
 
 Game.Position
 	.Char, .Line
