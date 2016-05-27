@@ -15,6 +15,7 @@ Game.UI
 			session
 				setMode('ace/mode/stack')
 				setOption('useWorker', false)
+				off('change', Editor.renderer.$gutterLayer.$updateAnnotations)
 			on('change', fn()
 				Game.CurProgram.Build(Editor.getValue())
 			)
